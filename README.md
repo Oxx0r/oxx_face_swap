@@ -27,8 +27,11 @@ keine Uploads, kein Cloud-Konto, kein Abo.
 
 ## Installation (einmalig)
 
-Voraussetzung: **Windows** mit **Python 3.10 oder neuer**
-([python.org](https://www.python.org/downloads/), beim Setup „Add python.exe to PATH“ anhaken).
+Voraussetzung: **Python 3.10 oder neuer**
+([python.org](https://www.python.org/downloads/), unter Windows beim Setup
+„Add python.exe to PATH“ anhaken).
+
+### Windows
 
 1. Im Projektordner **`install.bat`** doppelklicken (oder im Terminal
    `powershell -ExecutionPolicy Bypass -File .\install.ps1`).
@@ -37,17 +40,28 @@ Voraussetzung: **Windows** mit **Python 3.10 oder neuer**
 
 Mit NVIDIA-GPU zusätzlich: `powershell -ExecutionPolicy Bypass -File .\install.ps1 -Cuda`
 
+### Linux, macOS oder Git Bash (Windows)
+
+1. **`./install.sh`** ausführen (oder `bash install.sh`).
+2. Das Skript erstellt `.venv`, installiert die Abhängigkeiten und lädt die
+   Modelle (ca. 840 MB) nach `models/`.
+
+Mit NVIDIA-GPU zusätzlich: `./install.sh --cuda`  
+Modelle neu herunterladen (auch wenn schon vorhanden): `./install.sh --force`
+
 ### Manuell, ohne Skript
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
 # Modelle: siehe Abschnitt "Modelle" weiter unten
 ```
 
 ---
 
 ## GUI starten
+
+### Windows
 
 **`Oxx' FaceSwap.bat`** oder **`start_gui.bat`** doppelklicken – oder:
 
@@ -59,6 +73,24 @@ Gibt es Probleme, zeigt der Debug-Modus die Fehlermeldung im Fenster:
 
 ```powershell
 start_gui.bat debug
+```
+
+### Linux, macOS oder Git Bash (Windows)
+
+```bash
+./start_gui.sh
+```
+
+Mit Konsole (zeigt Fehlermeldungen im Terminal):
+
+```bash
+./start_gui.sh debug
+```
+
+Direkt mit Python:
+
+```bash
+./.venv/bin/python faceswap_gui.py
 ```
 
 ### Bedienung
@@ -90,6 +122,8 @@ angelegt; `↻` liest ihn neu ein, wenn du Bilder hinzugefügt hast.
 
 ## CLI benutzen
 
+### Windows
+
 ```powershell
 # Ein Bild, alle Gesichter
 .\.venv\Scripts\python.exe faceswap_cli.py --source spender.jpg --target gruppe.jpg
@@ -102,6 +136,28 @@ angelegt; `↻` liest ihn neu ein, wenn du Bilder hinzugefügt hast.
 
 # Nur schauen, welche Gesichter gefunden werden
 .\.venv\Scripts\python.exe faceswap_cli.py --target gruppe.jpg --list
+```
+
+### Linux, macOS oder Git Bash (Windows)
+
+```bash
+# Ein Bild, alle Gesichter
+./faceswap_cli.sh --source spender.jpg --target gruppe.jpg
+
+# Nur Gesicht 2 und 4 tauschen, Ergebnis angeben
+./faceswap_cli.sh -s spender.jpg -t gruppe.jpg --face 2,4 -o fertig.jpg
+
+# Mehrere Zielbilder (Ausgabe ist dann ein Ordner)
+./faceswap_cli.sh -s spender.jpg -t a.jpg b.jpg c.jpg -o ergebnisse
+
+# Nur schauen, welche Gesichter gefunden werden
+./faceswap_cli.sh --target gruppe.jpg --list
+```
+
+Oder direkt mit Python:
+
+```bash
+./.venv/bin/python faceswap_cli.py --help
 ```
 
 Wichtige Optionen:
@@ -167,10 +223,14 @@ Projektlizenz **nur für nicht-kommerzielle Forschung** freigegeben.
 
 ```
 zeug/
-├─ Oxx' FaceSwap.bat        # GUI starten (Doppelklick)
-├─ start_gui.bat            # gleicher Starter, ausführliche Version
-├─ install.bat / install.ps1# Einrichtung + Modelldownload
-├─ FaceSwap-CLI.bat         # CLI-Hilfe
+├─ Oxx' FaceSwap.bat        # GUI starten (Doppelklick, Windows)
+├─ Oxx' FaceSwap.sh         # GUI starten (Linux, macOS, Git Bash)
+├─ start_gui.bat            # gleicher Starter, ausführliche Version (Windows)
+├─ start_gui.sh             # gleicher Starter, ausführliche Version (Linux, macOS, Git Bash)
+├─ install.bat / install.ps1# Einrichtung + Modelldownload (Windows)
+├─ install.sh               # Einrichtung + Modelldownload (Linux, macOS, Git Bash)
+├─ FaceSwap-CLI.bat         # CLI-Hilfe (Windows)
+├─ faceswap_cli.sh          # CLI-Starter (Linux, macOS, Git Bash)
 ├─ faceswap_gui.py          # grafische Oberfläche (Tkinter)
 ├─ faceswap_cli.py          # Kommandozeile
 ├─ faceswap/
