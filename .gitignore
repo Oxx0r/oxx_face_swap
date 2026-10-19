@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.pyc
+output/
+#models/*.zip
+#models/*.onnx
+models/
+samples/
+#heads/
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mac crap
+.DS_Store
+
+GitHub_push_pull_UI.exe

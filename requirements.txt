@@ -1,0 +1,5 @@
+# Oxx' FaceSwap – Abhängigkeiten
+# Installation:  .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+insightface==2.1
+opencv-python>=4.9
+pillow>=10.0
